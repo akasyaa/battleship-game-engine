@@ -1,4 +1,4 @@
-export default function checkForShip (player, coordinates) {
+export function checkForShip (player, coordinates) {
     var shipPresent, ship;
 
     for (var i = 0; i < player.ships.length; i++) {
@@ -10,9 +10,21 @@ export default function checkForShip (player, coordinates) {
         })[0];
 
         if (shipPresent) {
-            return true;
+            return ship;
         }
     }
 
     return false;
+}
+
+export function damageShip (ship, coordinates) {
+    ship.damage.push(coordinates);
+}
+
+export function fire (player, coordinates) {
+    var ship = checkForShip(player, coordinates);
+
+    if (ship) {
+        damageShip (ship, coordinates);
+    }
 }
