@@ -1,0 +1,20 @@
+{
+  "name": "mocha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "textUtilities.js",
+  "dependencies": {
+    "chai": "^3.5.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-preset-es2015": "^6.18.0",
+    "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC"
+}
