@@ -4,14 +4,15 @@ export default function checkForShip (player, coordinates) {
     for (var i = 0; i < player.ships.length; i++) {
         ship = player.ships[i];
 
-        shipPresent = ship.location.filter((actualCoordinate) => {
+        shipPresent = ship.locations.filter((actualCoordinate) => {
             return (actualCoordinate[0] === coordinates[0]) &&
                    (actualCoordinate[1] === coordinates[1]);
         })[0];
 
-        if (!shipPresent) {
-            return false;
+        if (shipPresent) {
+            return true;
         }
     }
 
+    return false;
 }
