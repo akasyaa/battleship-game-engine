@@ -3,45 +3,10 @@ import { checkForShip, damageShip, fire } from '../game_logic/ship_methods'
 
 
 describe('checkForShip', () => {
-    it('should correctly report no ship at a given players coordinate', () => {
-        var player = {
-            ships: [
-                {
-                    locations: [[0, 0]]
-                }
-            ]
-        }
+    var player;
 
-        expect(checkForShip(player, [9, 9])).to.be.false;
-    });
-
-    it('should correctly report ship at a given players coordinate', () => {
-        var player = {
-            ships: [
-                {
-                    locations: [[9, 9]]
-                }
-            ]
-        }
-
-        expect(checkForShip(player, [9, 9])).not.to.be.false;
-    });
-
-    it('should correctly check for ships located at more than one coordinate', () => {
-        var player = {
-            ships: [
-                {
-                    locations: [[0, 0], [0, 1]]
-                }
-            ]
-        }
-
-        expect(checkForShip(player, [0, 1])).not.to.be.false;
-        expect(checkForShip(player, [9, 9])).to.be.false;
-    });
-
-    it('should correctly check for multiple ships', () => {
-        var player = {
+    before(() => {
+        player = {
             ships: [
                 {
                     locations: [[0, 0], [0, 1]]
@@ -54,7 +19,22 @@ describe('checkForShip', () => {
                 }
             ]
         }
+    });
 
+    it('should correctly report no ship at a given players coordinate', () => {
+        expect(checkForShip(player, [9, 9])).to.be.false;
+    });
+
+    it('should correctly report ship at a given players coordinate', () => {
+        expect(checkForShip(player, [0, 0])).not.to.be.false;
+    });
+
+    it('should correctly check for ships located at more than one coordinate', () => {
+        expect(checkForShip(player, [0, 1])).not.to.be.false;
+        expect(checkForShip(player, [9, 9])).to.be.false;
+    });
+
+    it('should correctly check for multiple ships', () => {
         expect(checkForShip(player, [9, 9])).to.be.false;
         expect(checkForShip(player, [0, 0])).not.to.be.false;
         expect(checkForShip(player, [0, 1])).not.to.be.false;
@@ -79,8 +59,10 @@ describe('damageShip', () => {
 });
 
 describe('fire', () => {
-    it('should record damage on the given players ship at a given coordinate', () => {
-        var player = {
+    var player;
+
+    beforeEach(() => {
+        player = {
             ships: [
                 {
                     locations: [[0, 0]],
@@ -88,22 +70,15 @@ describe('fire', () => {
                 }
             ]
         };
+    });
 
+    it('should record damage on the given players ship at a given coordinate', () => {
         fire(player, [0, 0]);
 
         expect(player.ships[0].damage[0]).to.deep.equal([0, 0]);
     });
 
     it('should not record damage if there is no ship at the target coordinate', () => {
-        var player = {
-            ships: [
-                {
-                    locations: [[0, 0]],
-                    damage: []
-                }
-            ]
-        };
-
         fire(player, [9, 9]);
 
         expect(player.ships[0].damage).to.be.empty;
